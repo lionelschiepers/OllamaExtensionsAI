@@ -1,0 +1,4 @@
+### Chat
+POST http://localhost:5192/chat?message=Do I need an umbrella? HTTP/1.1
+
+###
