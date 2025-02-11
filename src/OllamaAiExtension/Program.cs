@@ -5,7 +5,7 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var ollamaEndpoint = builder.Configuration["AI__Ollama__Endpoint"] ?? "http://localhost:11434";
-var chatModel = builder.Configuration["AI__Ollama__ChatModel"] ?? "llama3.2";
+var chatModel = builder.Configuration["AI__Ollama__ChatModel"] ?? "llama3.1";
 
 IChatClient client = new OllamaChatClient(ollamaEndpoint, modelId: chatModel)
     .AsBuilder()
@@ -21,13 +21,17 @@ string GetLocation() => "Vienna, Austria";
 [Description("Gets the weather and location")]
 string GetWeatherAndLocation() => $"{GetWeather()} in {GetLocation()}";
 
+[Description("Get Who am I")]
+string GetMe() => "Lionel";
+
 var chatOptions = new ChatOptions
 {
     Tools =
     [
         AIFunctionFactory.Create(GetWeather),
         AIFunctionFactory.Create(GetLocation),
-        AIFunctionFactory.Create(GetWeatherAndLocation)
+        AIFunctionFactory.Create(GetWeatherAndLocation),
+        AIFunctionFactory.Create(GetMe),
     ]
 };
 
